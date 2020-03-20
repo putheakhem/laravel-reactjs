@@ -33,4 +33,14 @@ class ProjectController extends Controller
 
         return response()->json('Project is Created');
     }
+
+    public function show($id) {
+        $project = Project::with([
+            'tasks'=>function($query) {
+                $query->where('is_completed', false);
+            }
+        ])->find($id);
+
+        return $project->toJson();
+    }
 }
