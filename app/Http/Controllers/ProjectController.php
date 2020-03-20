@@ -19,4 +19,18 @@ class ProjectController extends Controller
         return $projects->toJson();
 
     }
+
+    public function store(Request $request) {
+        $validateData = $request->validate([
+           'name' => 'required',
+           'description' => 'required'
+        ]);
+
+        $project = Project::create([
+           'name' => $validateData['name'],
+            'description' => $validateData['description'],
+        ]);
+
+        return response()->json('Project is Created');
+    }
 }
